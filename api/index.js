@@ -22,7 +22,7 @@ index.use(cors());
 // OR: Allow specific origin (recommended for production)
 index.use(
     cors({
-        origin: "http://localhost:5173", // Allow only frontend URL
+        origin: "https://lookout-frontend-5vfs.onrender.com", // Allow only frontend URL
         methods: "GET,POST,PUT,DELETE,OPTIONS",
         allowedHeaders: "Content-Type,Authorization",
     })
