@@ -17,6 +17,6 @@ const serviceActivitySchema = new Schema(
 
 serviceActivitySchema.add(baseSchema);
 
-const ServiceActivity = mongoose.model('servicesActivities', serviceActivitySchema);
+const ServiceActivity = mongoose.model('servicesactivities', serviceActivitySchema);
 
 module.exports = ServiceActivity;
