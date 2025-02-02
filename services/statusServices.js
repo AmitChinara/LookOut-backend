@@ -49,6 +49,7 @@ const createStatus = async (data) => {
             event: "SERVICE_CREATED",
             id: response.data._id,
             data: response.data,
+            logs: newServiceActivity,
         });
 
 
@@ -74,25 +75,27 @@ const updateStatus = async (id, status) => {
             response.status = 404;
             response.data = { message: 'Service not found' };
         } else {
+            const newServiceActivity = new ServiceActivity({
+                id: response.data._id,
+                createdBy: response.data.createdBy,
+                logs: `The service ${response.data.name} is updated with status of ${response.data.status}.`,
+                serviceId: response.data._id
+            })
+
+            await newServiceActivity.save();
             // Broadcast update to all clients
             broadcastStatusUpdate({
                 event: "STATUS_UPDATED",
                 id: response.data._id,
                 newStatus: response.data.status,
+                logs: newServiceActivity,
             });
         }
     } catch (error) {
         response.data = { message: error.message };
         response.status = 500;
     }
-    const newServiceActivity = new ServiceActivity({
-        id: response.data._id,
-        createdBy: response.data.createdBy,
-        logs: `The service ${response.data.name} is updated with status of ${response.data.status}.`,
-        serviceId: response.data._id
-    })
 
-    await newServiceActivity.save();
     return response;
 };
 
@@ -109,10 +112,19 @@ const deleteStatus = async (id) => {
         } else {
             response.data = { message: `Service deleted successfully` };
 
+            const newServiceActivity = new ServiceActivity({
+                id: response.data._id,
+                createdBy: response.data.createdBy || "xxxx",
+                logs: `Deleting: ${response.data.message}`,
+                serviceId: response.data._id || `${id}`
+            })
+
+            await newServiceActivity.save();
             // Broadcast update to all clients
             broadcastStatusUpdate({
                 event: "SERVICE_DELETED",
                 id: id,
+                logs: newServiceActivity,
             });
         }
     } catch (error) {
@@ -120,16 +132,6 @@ const deleteStatus = async (id) => {
         response.status = 500;
     }
 
-    const newServiceActivity = new ServiceActivity({
-        id: response.data._id,
-        createdBy: response.data.createdBy || "xxxx",
-        logs: `Deleting: ${response.data.message}`,
-        serviceId: response.data._id || `${id}`
-    })
-
-    console.log(newServiceActivity);
-
-    await newServiceActivity.save();
     return response;
 };
 
