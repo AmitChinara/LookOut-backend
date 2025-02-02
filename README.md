@@ -1,27 +1,20 @@
-# **Status Management Application**
+# **Backend - Status Management Application**
 
-This application manages and updates service statuses in real-time using **WebSocket** and **RESTful APIs**. It features **role-based authentication** (admin & regular users), a **responsive UI**, and **real-time updates** for changes in service statuses.
+The **backend** of the Status Management Application is built using **Node.js & Express**, with **WebSocket** for real-time updates and **Clerk** for authentication.
 
 ---
 
-## **Frontend**
-
-### **Technologies Used**
-- **React**: Framework for building UI components.
-- **Tailwind CSS**: Utility-first CSS framework for styling.
-- **Clerk**: Handles user authentication and role-based access.
+## **Technologies Used**
+- **Node.js**: JavaScript runtime for backend development.
+- **Express.js**: Web framework for creating RESTful APIs.
 - **WebSocket**: Enables real-time updates for service statuses.
+- **Clerk**: Handles user authentication and role-based access.
 
-### **Features**
-✅ **Real-Time Updates**: WebSocket updates status changes dynamically.  
-✅ **Role-Based UI**:
-   - **Admins**: Create, update, and delete statuses.
-   - **Regular Users**: Can only view statuses.  
-✅ **Responsive Design**: Built with Tailwind CSS for a modern, adaptive UI.
+---
 
-### **Installation**
+## **Setup & Installation**
+### **Clone the repository**
 ```sh
 git clone https://github.com/AmitChinara/LookOut.git
-cd LookOut/frontend
-npm install  # or yarn install
+cd LookOut/backend
 ```
