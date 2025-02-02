@@ -4,11 +4,15 @@ const { broadcastStatusUpdate } = require("../services/WebSocketService");
 
 const fetchAllStatus = async () => {
     let response = {
-        data: {},
+        data: {
+            statusData: {},
+            logData: {}
+        },
         status: 200
     };
     try {
-        response.data = await Services.find();
+        response.data.statusData = await Services.find();
+        response.data.logData = await ServiceActivity.find();
     } catch (error) {
         response.data = { message: error.message };
         response.status = 500;
